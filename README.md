@@ -1,6 +1,12 @@
 # cdk8s-external-dns-route53
 
+![Release](https://github.com/opencdk8s/cdk8s-external-dns-route53/workflows/Release/badge.svg?branch=development)
+[![npm version](https://badge.fury.io/js/%40opencdk8s%2Fcdk8s-external-dns-route53.svg)](https://badge.fury.io/js/%40opencdk8s%2Fcdk8s-external-dns-route53)
+[![PyPI version](https://badge.fury.io/py/cdk8s-external-dns-route53.svg)](https://badge.fury.io/py/cdk8s-external-dns-route53)
+![npm](https://img.shields.io/npm/dt/@opencdk8s/cdk8s-external-dns-route53?label=npm&color=green) 
+
 Upstream Fork of [this repo](https://github.com/guan840912/cdk8s-external-dns)
+
 Synths an install manifest for [ExternalDNS - Route53](https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/aws.md)
 
 ## Controller version : `v0.7.6`
