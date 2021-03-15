@@ -1,5 +1,7 @@
 import * as cdk8s from 'cdk8s';
 import { Construct } from 'constructs';
+export * from './policy';
+
 
 export interface AwsExternalDnsOptions {
 

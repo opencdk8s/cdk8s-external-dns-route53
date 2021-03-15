@@ -5,6 +5,7 @@
 Name|Description
 ----|-----------
 [AwsExternalDns](#opencdk8s-cdk8s-external-dns-route53-awsexternaldns)|Generate external-dns config yaml.
+[AwsExternalDnsPolicyHelper](#opencdk8s-cdk8s-external-dns-route53-awsexternaldnspolicyhelper)|Aws External Dns Policy class ,help you add policy to your Iam Role for service account.
 
 
 **Structs**
@@ -52,6 +53,40 @@ Name | Type | Description
 **image**🔹 | <code>string</code> | image for external-dns.
 **namespace**🔹 | <code>string</code> | Namespace for external-dns.
 **serviceAccountName**🔹 | <code>string</code> | Service Account Name for external-dns.
+
+
+
+## class AwsExternalDnsPolicyHelper 🔹 <a id="opencdk8s-cdk8s-external-dns-route53-awsexternaldnspolicyhelper"></a>
+
+Aws External Dns Policy class ,help you add policy to your Iam Role for service account.
+
+
+### Initializer
+
+
+
+
+```ts
+new AwsExternalDnsPolicyHelper()
+```
+
+
+
+### Methods
+
+
+#### *static* addPolicy(role)🔹 <a id="opencdk8s-cdk8s-external-dns-route53-awsexternaldnspolicyhelper-addpolicy"></a>
+
+
+
+```ts
+static addPolicy(role: any): any
+```
+
+* **role** (<code>any</code>)  *No description*
+
+__Returns__:
+* <code>any</code>
 
 
 
