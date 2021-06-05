@@ -174,7 +174,7 @@ export class AwsExternalDns extends Construct {
     });
   }
   private argsFunc(args?: string[]):string[] {
-    const defaultArgs = ['--source=service', '--source=ingress', '--provider=aws', '--registry=txt', '--txt-owner-id=external-dns'];
+    const defaultArgs = ['--source=service', '--source=ingress', '--provider=aws', '--registry=txt'];
     if (args) {
       args.forEach(e => defaultArgs.push(e));
     }
