@@ -22,7 +22,6 @@ const project = new ConstructLibraryCdk8s({
     `@aws-cdk/aws-iam@^${CDK_VERSION}`,
     `@aws-cdk/core@^${CDK_VERSION}`,
   ],
-  releaseEveryCommit: false,
   devDeps: [
     'constructs@^3.3.65',
     '@types/js-yaml@^3.12.5',
@@ -38,7 +37,7 @@ const project = new ConstructLibraryCdk8s({
     'constructs@^3.3.65',
     `@aws-cdk/aws-iam@^${CDK_VERSION}`,
     `@aws-cdk/core@^${CDK_VERSION}`,
-  ]
+  ],
   dependabot: false,
   gitignore: ['package.json', 'test/'],
   pullRequestTemplate: false,
@@ -46,7 +45,7 @@ const project = new ConstructLibraryCdk8s({
   codeCov: true,
   clobber: false,
   readme: true,
-  mergify: false,
+  mergify: true,
 });
 
 const common_exclude = ['cdk.out', 'package.json', 'yarn-error.log', 'coverage', '.DS_Store', '.idea', '.vs_code'];

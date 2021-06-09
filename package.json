@@ -63,7 +63,10 @@
     "constructs": "^3.3.65"
   },
   "dependencies": {
+    "@aws-cdk/aws-iam": "^1.92.0",
+    "@aws-cdk/core": "^1.92.0",
     "@types/js-yaml": "^3.12.5",
+    "constructs": "^3.3.65",
     "js-yaml": "^3.14.0"
   },
   "bundledDependencies": [
