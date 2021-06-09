@@ -34,6 +34,11 @@ const project = new ConstructLibraryCdk8s({
     '@types/js-yaml@^3.12.5',
     'js-yaml@^3.14.0',
   ],
+  deps: [
+    'constructs@^3.3.65',
+    `@aws-cdk/aws-iam@^${CDK_VERSION}`,
+    `@aws-cdk/core@^${CDK_VERSION}`,
+  ]
   dependabot: false,
   gitignore: ['package.json', 'test/'],
   pullRequestTemplate: false,
