@@ -28,8 +28,8 @@
     "organization": false
   },
   "devDependencies": {
-    "@aws-cdk/aws-iam": "1.92.0",
-    "@aws-cdk/core": "1.92.0",
+    "@aws-cdk/aws-iam": "1.113.0",
+    "@aws-cdk/core": "1.113.0",
     "@types/jest": "^26.0.20",
     "@types/js-yaml": "^3.12.5",
     "@types/node": "^10.17.0",
@@ -37,7 +37,7 @@
     "@typescript-eslint/parser": "^4.17.0",
     "cdk8s": "1.0.0-beta.10",
     "cdk8s-plus-17": "1.0.0-beta.10",
-    "constructs": "3.3.65",
+    "constructs": "3.3.48",
     "eslint": "^7.22.0",
     "eslint-import-resolver-node": "^0.3.4",
     "eslint-import-resolver-typescript": "^2.4.0",
@@ -56,17 +56,14 @@
     "typescript": "^4.2.3"
   },
   "peerDependencies": {
-    "@aws-cdk/aws-iam": "^1.92.0",
-    "@aws-cdk/core": "^1.92.0",
+    "@aws-cdk/aws-iam": "^1.113.0",
+    "@aws-cdk/core": "^1.113.0",
     "cdk8s": "^1.0.0-beta.10",
     "cdk8s-plus-17": "^1.0.0-beta.10",
-    "constructs": "^3.3.65"
+    "constructs": "^3.3.48"
   },
   "dependencies": {
-    "@aws-cdk/aws-iam": "^1.92.0",
-    "@aws-cdk/core": "^1.92.0",
     "@types/js-yaml": "^3.12.5",
-    "constructs": "^3.3.65",
     "js-yaml": "^3.14.0"
   },
   "bundledDependencies": [

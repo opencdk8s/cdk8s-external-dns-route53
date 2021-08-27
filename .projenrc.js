@@ -1,6 +1,6 @@
 const { ConstructLibraryCdk8s } = require('projen');
 
-const CDK_VERSION = '1.92.0';
+const CDK_VERSION = '1.113.0';
 
 const project = new ConstructLibraryCdk8s({
   author: 'Hunter Thompson',
@@ -18,12 +18,12 @@ const project = new ConstructLibraryCdk8s({
     module: 'cdk8s_external_dns_route53',
   },
   peerDeps: [
-    'constructs@^3.3.65',
     `@aws-cdk/aws-iam@^${CDK_VERSION}`,
+    'constructs@^3.3.48',
     `@aws-cdk/core@^${CDK_VERSION}`,
   ],
   devDeps: [
-    'constructs@^3.3.65',
+    'constructs@^3.3.48',
     '@types/js-yaml@^3.12.5',
     'js-yaml@^3.14.0',
     `@aws-cdk/aws-iam@^${CDK_VERSION}`,
@@ -32,11 +32,6 @@ const project = new ConstructLibraryCdk8s({
   bundledDeps: [
     '@types/js-yaml@^3.12.5',
     'js-yaml@^3.14.0',
-  ],
-  deps: [
-    'constructs@^3.3.65',
-    `@aws-cdk/aws-iam@^${CDK_VERSION}`,
-    `@aws-cdk/core@^${CDK_VERSION}`,
   ],
   dependabot: false,
   gitignore: ['package.json', 'test/'],
@@ -48,7 +43,7 @@ const project = new ConstructLibraryCdk8s({
   mergify: true,
 });
 
-const common_exclude = ['cdk.out', 'package.json', 'yarn-error.log', 'coverage', '.DS_Store', '.idea', '.vs_code'];
+const common_exclude = ['cdk.out', 'yarn-error.log', 'coverage', '.DS_Store', '.idea', '.vs_code'];
 project.gitignore.exclude(...common_exclude);
 
 project.synth();
