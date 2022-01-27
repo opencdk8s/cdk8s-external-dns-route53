@@ -22,7 +22,7 @@ Generate external-dns config yaml.
 
 see https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/aws.md
 
-__Implements__: [IConstruct](#constructs-iconstruct)
+__Implements__: [IConstruct](#constructs-iconstruct), [IDependable](#constructs-idependable)
 __Extends__: [Construct](#constructs-construct)
 
 ### Initializer
