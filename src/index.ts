@@ -1,6 +1,7 @@
-import * as cdk8s from 'cdk8s';
 import { Construct } from 'constructs';
+import * as k8s from './imports/k8s';
 export * from './policy';
+export * from './imports/k8s';
 
 
 export interface AwsExternalDnsOptions {
@@ -31,6 +32,14 @@ export interface AwsExternalDnsOptions {
    * @default - k8s.gcr.io/external-dns/external-dns:v0.7.6
    */
   readonly image?: string;
+
+  /**
+   * nodeSelector for external-dns.
+   * @default - None
+   */
+  readonly nodeSelector?: { [key: string]: string };
+
+  readonly kongTCP?: boolean;
 }
 
 /**
@@ -57,6 +66,10 @@ export class AwsExternalDns extends Construct {
    */
   public readonly image: string ;
 
+  public readonly nodeSelector: { [key: string]: string };
+
+  public readonly kongTCP: boolean;
+
 
   constructor(scope: Construct, id: string, options: AwsExternalDnsOptions) {
     super(scope, id);
@@ -64,59 +77,125 @@ export class AwsExternalDns extends Construct {
     this.deploymentName = 'external-dns';
     this.namespace = options.namespace ?? 'default';
     this.image = options.image ?? 'k8s.gcr.io/external-dns/external-dns:v0.7.6';
-    new cdk8s.ApiObject(this, 'external-dns-cluster-role', {
-      apiVersion: 'rbac.authorization.k8s.io/v1beta1',
-      kind: 'ClusterRole',
-      metadata: {
-        name: 'external-dns',
-      },
-      rules: [
-        {
-          apiGroups: [
-            '',
-          ],
-          resources: [
-            'services',
-            'endpoints',
-            'pods',
-          ],
-          verbs: [
-            'get',
-            'watch',
-            'list',
-          ],
+    this.nodeSelector = options.nodeSelector ?? {};
+    this.kongTCP = options.kongTCP ?? false;
+
+    if (this.kongTCP) {
+      new k8s.KubeClusterRole(this, 'external-dns-cluster-role', {
+        metadata: {
+          name: 'external-dns',
         },
-        {
-          apiGroups: [
-            'extensions',
-            'networking.k8s.io',
-          ],
-          resources: [
-            'ingresses',
-          ],
-          verbs: [
-            'get',
-            'watch',
-            'list',
-          ],
+        rules: [
+          {
+            apiGroups: [
+              '',
+            ],
+            resources: [
+              'services',
+              'endpoints',
+              'pods',
+            ],
+            verbs: [
+              'get',
+              'watch',
+              'list',
+            ],
+          },
+          {
+            apiGroups: [
+              'extensions',
+              'networking.k8s.io',
+            ],
+            resources: [
+              'ingresses',
+            ],
+            verbs: [
+              'get',
+              'watch',
+              'list',
+            ],
+          },
+          {
+            apiGroups: [
+              '',
+            ],
+            resources: [
+              'nodes',
+            ],
+            verbs: [
+              'list',
+              'watch',
+            ],
+          },
+          {
+            apiGroups: [
+              'configuration.konghq.com',
+            ],
+            resources: [
+              'tcpingresses',
+            ],
+            verbs: [
+              'get',
+              'watch',
+              'list',
+            ],
+          },
+        ],
+      });
+    } else {
+      new k8s.KubeClusterRole(this, 'external-dns-cluster-role', {
+        metadata: {
+          name: 'external-dns',
         },
-        {
-          apiGroups: [
-            '',
-          ],
-          resources: [
-            'nodes',
-          ],
-          verbs: [
-            'list',
-            'watch',
-          ],
-        },
-      ],
-    });
-    new cdk8s.ApiObject(this, 'external-dns-cluster-role-binding', {
-      apiVersion: 'rbac.authorization.k8s.io/v1beta1',
-      kind: 'ClusterRoleBinding',
+        rules: [
+          {
+            apiGroups: [
+              '',
+            ],
+            resources: [
+              'services',
+              'endpoints',
+              'pods',
+            ],
+            verbs: [
+              'get',
+              'watch',
+              'list',
+            ],
+          },
+          {
+            apiGroups: [
+              'extensions',
+              'networking.k8s.io',
+            ],
+            resources: [
+              'ingresses',
+            ],
+            verbs: [
+              'get',
+              'watch',
+              'list',
+            ],
+          },
+          {
+            apiGroups: [
+              '',
+            ],
+            resources: [
+              'nodes',
+            ],
+            verbs: [
+              'list',
+              'watch',
+            ],
+          },
+        ],
+      });
+
+    }
+
+
+    new k8s.KubeClusterRoleBinding(this, 'external-dns-cluster-role-binding', {
       metadata: {
         name: 'external-dns-viewer',
       },
@@ -134,9 +213,7 @@ export class AwsExternalDns extends Construct {
       ],
     });
 
-    new cdk8s.ApiObject(this, 'external-dns-deploy', {
-      apiVersion: 'apps/v1',
-      kind: 'Deployment',
+    new k8s.KubeDeployment(this, 'external-dns-deploy', {
       metadata: {
         name: this.deploymentName,
         namespace: this.namespace,
@@ -168,6 +245,7 @@ export class AwsExternalDns extends Construct {
             securityContext: {
               fsGroup: 65534,
             },
+            nodeSelector: this.nodeSelector,
           },
         },
       },
@@ -177,6 +255,9 @@ export class AwsExternalDns extends Construct {
     const defaultArgs = ['--source=service', '--source=ingress', '--provider=aws', '--registry=txt'];
     if (args) {
       args.forEach(e => defaultArgs.push(e));
+    }
+    if (this.kongTCP) {
+      defaultArgs.push('--source=kong-tcpingress');
     }
     return defaultArgs;
   }
