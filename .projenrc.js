@@ -30,7 +30,7 @@ const project = new ConstructLibraryCdk8s({
   clobber: false,
   readme: true,
   mergify: true,
-    depsUpgrade: false,
+  depsUpgrade: false,
 });
 
 const common_exclude = ['cdk.out', 'yarn-error.log', 'coverage', '.DS_Store', '.idea', '.vs_code'];
