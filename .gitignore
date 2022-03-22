@@ -54,4 +54,3 @@ coverage
 .DS_Store
 .idea
 .vs_code
-!/.github/workflows/upgrade-development.yml
