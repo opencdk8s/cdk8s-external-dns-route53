@@ -24,6 +24,11 @@ const project = new ConstructLibraryCdk8s({
   devDeps: [
     `aws-cdk-lib@${CDK_VERSION}`,
   ],
+  publishToGo: {
+    gitUserName: 'Hunter-Thompson',
+    gitUserEmail: 'aatman@auroville.org.in',
+    moduleName: 'github.com/opencdk8s/cdk8s-external-dns-route53-go',
+  },
   dependabot: false,
   pullRequestTemplate: false,
   codeCov: true,
